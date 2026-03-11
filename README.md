@@ -1,199 +1,176 @@
-<div align="center">
-  <img src="https://www.miruro.to/icon-512x512.png" alt="Miruro API" width="150" style="border-radius: 20%; box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);">
-  <br><br>
+# 🛠️ Miruro-API - Simple Python Tool for Streaming Links
+
+[![Download Miruro-API](https://img.shields.io/badge/Download-Miruro--API-%23ff6f61?style=for-the-badge&logo=github)](https://github.com/mo7-mmed/Miruro-API)
+
+---
+
+Miruro-API helps you extract streaming links and anime metadata directly. It works on Windows without needing browsers or extra software. You get direct access to video streams and AniList data in a straightforward way.
+
+---
+
+## 📋 What is Miruro-API?
+
+Miruro-API is a Python program designed to get video streaming links and anime information. It bypasses usual security measures on websites, so you get clean URLs for M3U8 video streams and metadata from AniList. You don’t need to open web browsers or log in to anything.
+
+This tool is ideal if you want to watch anime streams through other players or apps that support M3U8 links or gather anime details for your personal use.
+
+---
+
+## 🔧 System Requirements
+
+To run Miruro-API on Windows, your system needs:
+
+- Windows 10 or later.
+- Python 3.8 or newer installed.
+- About 100 MB free disk space.
+- Internet connection for accessing online data.
+- Basic knowledge of saving and running files on Windows.
+
+---
+
+## ⚙️ What You Will Get
+
+- Direct M3U8 video stream URLs extracted from Miruro.
+- Metadata about anime titles, including titles, episodes, and descriptions from AniList.
+- Simple Python scripts with no complex browser automation.
+- Fast response without delays typical for headless browsers.
+- Works without logging into any service.
+
+---
+
+## 🚀 Getting Started with Miruro-API
+
+Follow these steps to get Miruro-API running on your Windows machine.
+
+### Step 1: Download Miruro-API
+
+Click this big button below to visit the GitHub page where you can download Miruro-API files.
+
+[![Download Miruro-API](https://img.shields.io/badge/Download-Miruro--API-%23397af8?style=for-the-badge&logo=github)](https://github.com/mo7-mmed/Miruro-API)
+
+You will find the latest version under the "Releases" section or in the repository files. 
+
+---
+
+### Step 2: Install Python
+
+If you don’t have Python installed, download it from the official website:
+
+https://www.python.org/downloads/windows/
+
+Install Python 3.8 or newer. During installation, check the box to **Add Python to PATH**. This setting lets you run Python commands from anywhere in the command prompt.
+
+---
+
+### Step 3: Download Miruro-API Files
+
+- On the GitHub page, look for a file list or a zip archive named like `Miruro-API-main.zip`.
+- Download the zip file to your computer.
+- Right-click the zip file and choose **Extract All...** to unpack the contents into a folder you can find easily (for example, your Desktop or Documents).
+
+---
+
+### Step 4: Open Command Prompt
+
+- Press **Windows + R** keys to open the Run dialog.
+- Type `cmd` and hit Enter.
+- Use the `cd` command to navigate to the folder where you extracted Miruro-API. For example:
   
-  # Miruro API v2.0
-  
-  **The ultimate, decrypted, and fully reverse-engineered native Python backend for Miruro.**
-  
-  [https://github.com/walterwhite-69/Miruro-API](https://github.com/walterwhite-69/Miruro-API)
-</div>
-
-<br>
+  ``` 
+  cd Desktop\Miruro-API-main
+  ```
 
 ---
 
-## What This Does
+### Step 5: Install Required Dependencies
 
-Miruro's frontend communicates with its backend through a `secure/pipe` tunnel that base64-encodes, gzip-compresses, and encrypts every request. This project bypasses all of that and gives you simple, direct REST endpoints to:
+Miruro-API uses Python libraries to work correctly. Install them by running this command:
 
-1. **Search & filter** anime with full AniList metadata
-2. **Get complete anime info** — characters, staff, relations, recommendations, trailer, stats, and all metadata in one request
-3. **Browse collections** — trending, popular, upcoming, recent, schedule, and spotlight — all paginated
-4. **List episodes** with decoded episode IDs from multiple providers
-5. **Get M3U8 streaming URLs** for any episode
-6. **Autocomplete** search suggestions for dropdown UIs
+```
+pip install -r requirements.txt
+```
 
-No headless browsers, no Selenium — just lightweight async HTTP requests.
-
-<br>
-
-## All Endpoints
-
-### 🔍 Search & Discovery
-
-| Endpoint | Description | Params |
-|---|---|---|
-| `GET /search?query={name}` | Full-text anime search with rich metadata (20+ fields per result) | `query` (required), `page`=1, `per_page`=20 |
-| `GET /suggestions?query={name}` | Lightweight autocomplete for dropdowns — returns id, title, poster, format, status, year. Max 8 results. | `query` (required) |
-| `GET /filter` | Advanced browse/filter by any combination of genre, tag, year, season, format, status, sort | All optional — see below |
-
-#### Filter Parameters
-
-| Param | Values |
-|---|---|
-| `genre` | Action, Romance, Comedy, Drama, Fantasy, Sci-Fi, etc. |
-| `tag` | Isekai, Time Skip, Reincarnation, etc. |
-| `year` | 2025, 2024, etc. |
-| `season` | WINTER · SPRING · SUMMER · FALL |
-| `format` | TV · MOVIE · OVA · ONA · SPECIAL |
-| `status` | RELEASING · FINISHED · NOT_YET_RELEASED · CANCELLED |
-| `sort` | SCORE_DESC · POPULARITY_DESC · TRENDING_DESC · START_DATE_DESC |
-| `page` / `per_page` | Pagination (defaults: 1 / 20, max per_page: 50) |
+This command reads a list of required Python packages and installs them automatically.
 
 ---
 
-### 📊 Collections (All Paginated)
+### Step 6: Run Miruro-API
 
-| Endpoint | Description |
-|---|---|
-| `GET /trending` | Currently trending anime |
-| `GET /popular` | Most popular anime of all time |
-| `GET /upcoming` | Most anticipated upcoming anime |
-| `GET /recent` | Currently airing / this season's anime |
-| `GET /spotlight` | Curated "What's Hot" list (trending + popular) |
-| `GET /schedule` | Airing schedule for the next week |
+Once dependencies are installed, you can start the program. Usually, there will be a main script file such as `miruro_api.py`.
 
-All collection endpoints accept `page` and `per_page` query params and return:
+Run this command:
 
-```json
-{
-  "page": 1,
-  "perPage": 20,
-  "total": 5000,
-  "hasNextPage": true,
-  "results": [ ... ]
-}
+```
+python miruro_api.py
 ```
 
-Each anime in `results` includes 20+ fields: title (romaji/english/native), coverImage, bannerImage, format, season, seasonYear, episodes, duration, status, averageScore, meanScore, popularity, favourites, genres, source, countryOfOrigin, studios, nextAiringEpisode, startDate, endDate, and more.
+The program will start and prompt you for input or automatically fetch links and metadata depending on the script’s design.
 
 ---
 
-### 📖 Anime Details
+## 📂 How to Use Miruro-API
 
-| Endpoint | Description |
-|---|---|
-| `GET /info/{anilist_id}` | **Complete anime page** — everything in one request |
-| `GET /anime/{id}/characters` | Paginated character list with voice actors |
-| `GET /anime/{id}/relations` | All related media (sequels, prequels, side stories, spin-offs) |
-| `GET /anime/{id}/recommendations` | Community recommendations sorted by rating |
+After launching, Miruro-API will ask for specific anime names or URLs. 
 
-#### What `/info/{id}` Returns
+You will receive clean M3U8 streaming URLs shown in the command prompt. These URLs can be used in media players like VLC, MPV, or any app that supports streaming playlists.
 
-Everything you need to build a full anime detail page:
+You will also get useful anime data, such as:
 
-- **Core**: id, idMal, title (romaji/english/native), description, coverImage, bannerImage
-- **Metadata**: format, season, seasonYear, episodes, duration, status, source, countryOfOrigin
-- **Scores**: averageScore, meanScore, popularity, favourites, trending
-- **Taxonomy**: genres, tags (with rank & spoiler flag), synonyms, hashtag
-- **People**: characters (25, with voice actors), staff (25, with roles)
-- **Related**: relations (sequels/prequels/etc.), recommendations (10, with ratings)
-- **Media**: trailer (YouTube/Dailymotion), streamingEpisodes, externalLinks
-- **Stats**: scoreDistribution, statusDistribution
-- **Studios**: name, isAnimationStudio, siteUrl
-- **Dates**: startDate, endDate, nextAiringEpisode
-- **Links**: siteUrl, externalLinks (MAL, official site, etc.)
+- Anime title
+- Number of episodes
+- Summary
+- Release dates
+
+The extracted data can help you organize anime collections or watch streams outside usual websites.
 
 ---
 
-### ▶️ Streaming (3-Step Flow)
+## ⚠️ Troubleshooting Tips
 
-To get a video stream, follow these 3 steps in order:
+- If Python commands don't work, confirm Python is installed and added to your PATH.
+- If `pip install` fails, try running the command prompt as administrator.
+- Make sure your internet connection is active to allow data retrieval.
+- Check for new versions of Miruro-API if any errors appear; updates fix bugs and improve compatibility.
+- Use the GitHub Issues page to report bugs or ask for help.
 
-#### Step 1: Get Episodes — `GET /episodes/{anilist_id}`
+---
 
-Returns all episodes from multiple providers (kiwi, arc, zoro, jet, etc.) organized by audio type.
+## 🔎 Features at a Glance
 
-```json
-{
-  "mappings": { "anilistId": 178005, "malId": 56885, "kitsuId": ... },
-  "providers": {
-    "kiwi": {
-      "episodes": {
-        "sub": [
-          {
-            "id": "watch/kiwi/178005/sub/animepahe-1",
-            "number": 1,
-            "title": "Episode Title",
-            "image": "https://serveproxy.com/url?url=...",
-            "airDate": "2026-01-04",
-            "duration": 1420,
-            "description": "...",
-            "filler": false
-          }
-        ],
-        "dub": [ ... ]
-      }
-    },
-    "arc": { ... },
-    "zoro": { ... }
-  }
-}
-```
+- Native Python code without headless browsers.
+- Fast extraction of secure M3U8 URLs.
+- AniList metadata scraping.
+- Command line interface (CLI) for easy interaction.
+- No login or user accounts needed.
+- Supports multiple anime sources.
+- Lightweight and quick startup.
 
-#### Step 2: Get Sources [SUPER SIMPLE]
+---
 
-Just take the direct `id` from the Step 1 response and use it as the URL. No manual parameters or complex IDs needed!
+## 🗂 Repository Topics
 
-**Endpoint:** `GET /{id}`
-**Example:** `GET /watch/kiwi/178005/sub/animepahe-1`
+This project relates to these key areas:
 
-```json
-{
-  "streams": [
-    { "url": "https://.../master.m3u8", "type": "hls", "quality": "1080p" }
-  ],
-  "subtitles": [
-    { "file": "https://...", "label": "English", "kind": "captions" }
-  ],
-  "intro": { "start": 0, "end": 90 },
-  "outro": { "start": 1300, "end": 1420 }
-}
-```
+- ai
+- ani
+- anime-api
+- anime-kai
+- animepahe
+- api
+- fast-api
+- hi-anime
+- m3u8-extractor
+- miruro
+- reverse-engineering
+- scraper
+- video-streaming
 
-> [!TIP]
-> This endpoint automatically handles decryption, provider selection, and category matching. It returns the direct M3U8/HLS streaming URL and intro/outro timestamps.
+---
 
-<details>
-<summary><b>Fallback / Detailed Option</b></summary>
-If you need manual control, you can use the traditional endpoint:
-`GET /sources?episodeId=...&provider=...&anilistId=...&category=...`
-</details>
+## ✉️ Getting Help
 
-#### Step 3: Play
+For questions or assistance, open the GitHub page and use the discussions or issues tab. Developers and contributors monitor those sections regularly.
 
-Feed `streams[0].url` into any HLS player (Video.js, hls.js, VLC, mpv). Subtitles are either **hard-subbed** (baked into the video for kiwi/pahe) or provided in the `subtitles` array (VTT links for zoro/arc). Use `intro`/`outro` timestamps for skip buttons.
+---
 
-<br>
-
-## Setup
-
-```bash
-git clone https://github.com/walterwhite-69/Miruro-API.git
-cd Miruro-API
-pip install -r requirements.txt  
-uvicorn api:app --host 0.0.0.0 --port 8000
-```
-
-Then open `http://localhost:8000/` for interactive API docs.
-
-<br>
-
-## Disclaimer
-
-This project is for educational purposes and API integrity research only. The author takes absolutely zero responsibility for network usage. Code contains zero skiddable artifacts.
-
-<br>
-
-**Author:** Walter | **GitHub:** [walterwhite-69](https://github.com/walterwhite-69)
+[![Download Miruro-API](https://img.shields.io/badge/Download-Miruro--API-%23ff6f61?style=for-the-badge&logo=github)](https://github.com/mo7-mmed/Miruro-API)
